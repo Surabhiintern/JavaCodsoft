@@ -1,0 +1,50 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class NumberGuess {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Random random = new Random();
+        int min = 1;
+        int max = 100;
+        int attempts = 5 ;
+        int score = 0;
+
+        System.out.println("Welcome to the Number Guessing Game!");
+
+        while (true) {
+            int numberToGuess = random.nextInt(max - min + 1) + min;
+            System.out.println("A random number between " + min + " and " + max+ " has been generated.");
+            System.out.println("You have " + attempts + " attempts to guess the number.");
+
+            for (int attempt = 1; attempt <= attempts; attempt++) {
+                System.out.print("Attempt " + attempt + ": Enter your guess: ");
+                int userGuess = sc.nextInt();
+
+                if (userGuess == numberToGuess) {
+                    System.out.println("Congratulations! You guessed the correct number.");
+                    score += attempts - (attempt - 1);
+                    break;
+                } else if (userGuess < numberToGuess) {
+                    System.out.println("Too low! Try again.");
+                } else {
+                    System.out.println("Too high! Try again.");
+                }
+
+                if (attempt == attempts) {
+                    System.out.println("Out of attempts! The correct number was: " + numberToGuess);
+                }
+            }
+
+            System.out.print("Do you want to play again? (yes/no): ");
+            String playAgain = sc.next().toLowerCase();
+            if (!playAgain.equals("yes"))
+            {
+                System.out.println("Thanks for playing! Your total score is: " + score);
+                break;
+            }
+        }
+
+        sc.close();
+    }
+}
